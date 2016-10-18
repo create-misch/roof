@@ -33,7 +33,8 @@ SOURCES += main.cpp\
     menu/singlegame.cpp \
     menu/windowsmanager.cpp \
     game/objects/wallbehavior.cpp \
-    game/objects/fatbot.cpp
+    game/objects/fatbot.cpp \
+   # game/scene.cpp
 
 
 
@@ -56,7 +57,8 @@ HEADERS  += ./menu/menuwindow.h \
     menu/singlegame.h \
     menu/windowsmanager.h \
     game/objects/wallbehavior.h \
-    game/objects/fatbot.h
+    game/objects/fatbot.h \
+    #game/scene.h
 
 RESOURCES += \
     roof.qrc

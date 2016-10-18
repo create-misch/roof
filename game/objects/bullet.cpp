@@ -91,6 +91,7 @@ void Bullet::checkOnHint()
             }
         }
     }
+
 }
 
 Weapon Bullet::getWeapon() const

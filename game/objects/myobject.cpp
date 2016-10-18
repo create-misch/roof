@@ -87,24 +87,10 @@ void MyObject::move()
 
 bool MyObject::canMove(const int x,const int y)
 {
-    if(intersectOnObjects(x, y, getObjects()) == true){
+    if(intersectOnObjects(x, y, this, getObjects()) == true){
         return false;
     }
     return true;
-}
-
-bool MyObject::intersectOnObjects(const int x,const int y,QVector<Object *> *const objects)
-{
-    QRect my_rect(x, y, getWidth(), getHeight());
-
-    for(QVector<Object *>::const_iterator it = objects->begin(); it != objects->end(); it++){
-        Object *obj = *it;
-        QRect npc_rect(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
-        if(my_rect.intersects(npc_rect)){
-            return true;
-        }
-    }
-    return false;
 }
 
 void MyObject::shot()
@@ -120,8 +106,8 @@ void MyObject::shot()
         if(x > 0 && x < Options::instance()->app_option.getGameSpaceWidth() - getWidth()
                 && y > 0  && y < Options::instance()->app_option.getGameSpaceHeight() - getHeight()){
             Wall *wall = new Wall;
-            if(wall->intersectOnObjects(x, y, getObjects()) == false){
-                wall->initWall(x, y);
+            wall->initWall(x, y);
+            if(intersectOnObjects(wall, getObjects()) == false){
                 weapon->addAmmunition(-1);
                 getObjects()->push_back(wall);
             }

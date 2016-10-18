@@ -214,6 +214,29 @@ bool Object::operator ==(bool rhs)
 
 }
 
+bool intersectOnObjects(const Object *obj, QVector<Object *> *const objects){
+    QRect rect_a(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
+    for(QVector<Object *>::const_iterator it = objects->begin(); it != objects->end(); it++){
+        if(obj != *it){
+            QRect rect_b((*it)->getX(), (*it)->getY(), (*it)->getWidth(), (*it)->getHeight());
+            if(rect_a.intersects(rect_b)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 
-
+bool intersectOnObjects(const int x_next, const int y_next, const Object *obj, QVector<Object *> *const objects){
+    QRect rect_a(x_next, y_next, obj->getWidth(), obj->getHeight());
+    for(QVector<Object *>::const_iterator it = objects->begin(); it != objects->end(); it++){
+        if(obj != *it){
+            QRect rect_b((*it)->getX(), (*it)->getY(), (*it)->getWidth(), (*it)->getHeight());
+            if(rect_a.intersects(rect_b)){
+                return true;
+            }
+        }
+    }
+    return false;
+}
 

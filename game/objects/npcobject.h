@@ -17,7 +17,6 @@ public:
 
 private:
     bool canMove(const int x,const int y);
-    bool intersectOnObjects(const int x,const int y,QVector<Object *> *const npcs);
     void calculateAngle();
     bool operator ==(Object *rhs);
 

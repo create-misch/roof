@@ -31,7 +31,7 @@ bool NpcObject::initPosition(const Position position)
     default:
         break;
     }
-    if(intersectOnObjects(getX(), getY(), getObjects()) == true){
+    if(intersectOnObjects(this, getObjects()) == true){
         return false;
     }
     else{
@@ -72,26 +72,26 @@ void NpcObject::move()
 
 bool NpcObject::canMove(const int x,const int y)
 {
-    if(intersectOnObjects(x, y, getObjects()) == true){
+    if(intersectOnObjects(x, y, this, getObjects()) == true){
         return false;
     }
     return true;
 }
 
-bool NpcObject::intersectOnObjects(const int x,const int y,QVector<Object *> *const npcs)
-{
-    QRect this_npc_rect(x, y, getWidth(), getHeight());
-    for(QVector<Object *>::const_iterator it = npcs->begin(); it != npcs->end(); it++){
-        if(this != *it){
-            Object *obj = *it;
-            QRect npc_rect(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
-            if(this_npc_rect.intersects(npc_rect)){
-                return true;
-            }
-        }
-    }
-    return false;
-}
+//bool NpcObject::intersectOnObjects(const int x,const int y,QVector<Object *> *const npcs)
+//{
+//    QRect this_npc_rect(x, y, getWidth(), getHeight());
+//    for(QVector<Object *>::const_iterator it = npcs->begin(); it != npcs->end(); it++){
+//        if(this != *it){
+//            Object *obj = *it;
+//            QRect npc_rect(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
+//            if(this_npc_rect.intersects(npc_rect)){
+//                return true;
+//            }
+//        }
+//    }
+//    return false;
+//}
 
 void NpcObject::calculateAngle()
 {

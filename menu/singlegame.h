@@ -2,14 +2,16 @@
 #define SINGLEGAME_H
 
 #include <QWidget>
+#include <QGraphicsView>
 #include "../game/engine.h"
 #include "../game/graphic.h"
+//#include "../game/scene.h"
 #include "windowsmanager.h"
 
 class Graphic;
 
 class SingleGame : public QWidget
-{
+{    
     Q_OBJECT
 public:
     explicit SingleGame(QWidget *parent = 0);

@@ -21,7 +21,6 @@ public:
     Weapon getWeapon() const;
     virtual void move();
     bool canMove(const int x,const int y);
-    bool intersectOnObjects(const int x,const int y,QVector<Object *> *const objects);
     void shot();
 
     QVector<BulletBehavior *>weapons;

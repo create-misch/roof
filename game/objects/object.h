@@ -126,4 +126,7 @@ private:
     QVector<Object *> *objects_;
 };
 
+bool intersectOnObjects(const Object *obj,QVector<Object *> *const objects);
+bool intersectOnObjects(const int x_next, const int y_next, const Object *obj, QVector<Object *> *const objects);
+
 #endif // OBJECT_H

@@ -8,6 +8,7 @@ bool sortLife_false(Object *lhs, Object *rhs){
         return false;
     }
 }
+
 bool isLife_false(Object *o){
     if(o->getIsLife() == false){
         return true;
