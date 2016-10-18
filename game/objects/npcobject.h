@@ -20,7 +20,6 @@ private:
     void calculateAngle();
     bool operator ==(Object *rhs);
 
-
     Object *my_object_;
 };
 

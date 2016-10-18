@@ -29,9 +29,8 @@ void FatBot::initNpcObject(Object * const my, QVector<Object *> * const objects)
 
 bool FatBot::hintMyObject(const int x, const int y)
 {
-    QRect my_rect(getMyObject()->getX(), getMyObject()->getY(),getMyObject()->getWidth(), getMyObject()->getHeight());
-    QRect npc_rect(x, y, getWidth(), getHeight());
-    if(my_rect.intersects(npc_rect)){
+    if(intersectOnObjects(x, y, this, getMyObject()) == true){
+
         if(getMyObject()->getHealth() <= 0){
             getMyObject()->setIsLife(false);
             return true;

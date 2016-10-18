@@ -14,6 +14,7 @@
 
 bool sortLife_false(Object *lhs, Object *rhs);
 bool isLife_false(Object *o);
+bool isLifeNpc_true(Object *o);
 
 class Wall;
 struct DataEngine{

@@ -240,3 +240,12 @@ bool intersectOnObjects(const int x_next, const int y_next, const Object *obj, Q
     return false;
 }
 
+bool intersectOnObjects(const int x_next, const int y_next, const Object *obj_a, const Object *obj_b){
+    QRect rect_a(x_next, y_next, obj_a->getWidth(), obj_a->getHeight());
+    QRect rect_b(obj_b->getX(), obj_b->getY(), obj_b->getWidth(), obj_b->getHeight());
+    if(rect_a.intersects(rect_b)){
+        return true;
+    }
+    return false;
+}
+

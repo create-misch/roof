@@ -23,6 +23,9 @@ public:
         return count_ammunition_;
     }
     bool canShot() const {
+        if(weapon_ == PISTOL){
+            return true;
+        }
         if(count_ammunition_ > 0){
             return true;
         }

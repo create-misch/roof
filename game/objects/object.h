@@ -39,7 +39,7 @@ enum TypeObject{
     FAT_BOT
 };
 
-
+//test
 class Level{
 public:
     Level(){}
@@ -47,10 +47,8 @@ public:
         max_burned = max_burn;
         time_to_burn = 40;
         for(int i = 0; i < max_burned; i++){
-            if(i%2 == 1){
-                //types_npc.push_back(BOT);
+            if(i%2 == 1){                
                 types_npc.push_back(FAT_BOT);
-
             }
             else{
                 types_npc.push_back(KAMIKAZE);
@@ -128,5 +126,5 @@ private:
 
 bool intersectOnObjects(const Object *obj,QVector<Object *> *const objects);
 bool intersectOnObjects(const int x_next, const int y_next, const Object *obj, QVector<Object *> *const objects);
-
+bool intersectOnObjects(const int x_next, const int y_next, const Object *obj_a, const Object *obj_b);
 #endif // OBJECT_H

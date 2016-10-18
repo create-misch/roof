@@ -78,21 +78,6 @@ bool NpcObject::canMove(const int x,const int y)
     return true;
 }
 
-//bool NpcObject::intersectOnObjects(const int x,const int y,QVector<Object *> *const npcs)
-//{
-//    QRect this_npc_rect(x, y, getWidth(), getHeight());
-//    for(QVector<Object *>::const_iterator it = npcs->begin(); it != npcs->end(); it++){
-//        if(this != *it){
-//            Object *obj = *it;
-//            QRect npc_rect(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
-//            if(this_npc_rect.intersects(npc_rect)){
-//                return true;
-//            }
-//        }
-//    }
-//    return false;
-//}
-
 void NpcObject::calculateAngle()
 {
     double angle;

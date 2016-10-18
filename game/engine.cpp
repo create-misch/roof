@@ -162,14 +162,12 @@ void Engine::checkHints()
     if(objects.isEmpty() == true){
         return;
     }
-    for(it_object = objects.begin(); it_object != objects.end(); it_object++){
-        Object *obj = *it_object;
-        if(obj->getTypeObject() == BULLET){
-            Bullet *bullet = dynamic_cast<Bullet*>(obj);
+    for(it_object = objects.begin(); it_object != objects.end(); it_object++){        
+        if((*it_object)->getTypeObject() == BULLET){
+            Bullet *bullet = dynamic_cast<Bullet*>(*it_object);
             bullet->checkOnHint();
         }
     }
-
 }
 
 void Engine::checkLife()
@@ -184,16 +182,15 @@ void Engine::checkLife()
 
     QVector<Object *>::iterator begin_remove = std::find_if(objects.begin(), objects.end(), isLife_false);
     if(begin_remove != 0){
-        for(QVector<Object *>::iterator it = begin_remove; it != objects.end();it++ ){
-            Object *obj = *it;
-            if(obj->getIsLife() == false){
-                if(obj->getTypeObject() == BOT  || obj->getTypeObject() == KAMIKAZE) {
+        for(QVector<Object *>::iterator it = begin_remove; it != objects.end();it++ ){            
+            if((*it)->getIsLife() == false){
+                if((*it)->getTypeObject() == BOT  || (*it)->getTypeObject() == KAMIKAZE) {
                     score_ += 100;                    
                 }
-                if(obj->getTypeObject() == FAT_BOT){
+                if((*it)->getTypeObject() == FAT_BOT){
                     score_ += 150;
                 }
-                delete obj;
+                delete (*it);
             }
 
         }
@@ -218,9 +215,8 @@ void Engine::checkNextLevel(const int level)
 void Engine::moveAll()
 {
     for(it_object = objects.begin(); it_object != objects.end(); it_object++){
-        Object *obj = *it_object;
-        if(obj->getIsLife() == true){            
-            obj->move();
+        if((*it_object)->getIsLife() == true){
+            (*it_object)->move();
         }
     }
 }

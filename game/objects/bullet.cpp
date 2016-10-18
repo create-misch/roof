@@ -39,6 +39,8 @@ void Bullet::move()
         break;
 
     default:
+        x = getX();
+        y = getY();
         break;
 
     }
@@ -74,17 +76,16 @@ void Bullet::checkOnHint()
     }
 
     for(QVector<Object *>::iterator it = getObjects()->begin(); it != getObjects()->end(); it++){
-        Object *obj = *it;
-        if(this != obj){
-            if(obj->getIsLife() == true){
+        if(this != (*it)){
+            if((*it)->getIsLife() == true){
                 QRect bullet_rect(getX(), getY(), getWidth(), getHeight());
-                QRect npc_rect(obj->getX(), obj->getY(), obj->getWidth(), obj->getHeight());
+                QRect npc_rect((*it)->getX(), (*it)->getY(), (*it)->getWidth(), (*it)->getHeight());
                 if(bullet_rect.intersects(npc_rect)){
                     if(bulletBehavior->getWeapon() == ROCKET){
-                        bulletBehavior->hintInObject(obj, getObjects());
+                        bulletBehavior->hintInObject((*it), getObjects());
                     }
                     else{
-                        bulletBehavior->hintInObject(obj);
+                        bulletBehavior->hintInObject((*it));
                     }
                     setIsLife(false);
                 }
@@ -113,7 +114,5 @@ bool Bullet::operator ==(Object *rhs)
     else {
         return false;
     }
-
-
 }
 

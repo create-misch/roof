@@ -13,7 +13,6 @@ RocketBehavior::~RocketBehavior()
 
 void RocketBehavior::hintInObject(Object *const npc, QVector<Object *> *const objects)
 {
-    qDebug () << "shot rocket";
     if(objects->isEmpty() == true){
         return;
     }
