@@ -66,7 +66,7 @@ void GamePanel::setParam(const DataEngine data)
     str.setNum(weapon->getAmmunition());
     ammunition_count.setText(str);
     str.clear();
-    str.setNum(data.level);
+    str.setNum(data.level + 1);
     level_count.setText(str);
     str.clear();
     str.setNum(data.score);

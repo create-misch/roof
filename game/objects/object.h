@@ -39,30 +39,6 @@ enum TypeObject{
     FAT_BOT
 };
 
-//test
-class Level{
-public:
-    Level(){}
-    Level(int max_burn){
-        max_burned = max_burn;
-        time_to_burn = 40;
-        for(int i = 0; i < max_burned; i++){
-            if(i%2 == 1){                
-                types_npc.push_back(FAT_BOT);
-            }
-            else{
-                types_npc.push_back(KAMIKAZE);
-            }
-        }
-
-    }
-    int max_burned;
-    int time_to_burn;
-    QVector<TypeObject>types_npc;
-
-};
-
-
 class Object
 {
 public:

@@ -6,6 +6,7 @@
 
 QT       += core gui
 
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 CONFIG  += c++11
@@ -35,6 +36,8 @@ SOURCES += main.cpp\
     game/objects/wallbehavior.cpp \
     game/objects/fatbot.cpp \
    # game/scene.cpp
+    reader/levelsreader.cpp \
+    reader/parser.cpp
 
 
 
@@ -59,6 +62,9 @@ HEADERS  += ./menu/menuwindow.h \
     game/objects/wallbehavior.h \
     game/objects/fatbot.h \
     #game/scene.h
+    reader/levelsreader.h \
+    game/level.h \
+    reader/parser.h
 
 RESOURCES += \
     roof.qrc

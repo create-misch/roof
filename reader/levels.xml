@@ -1,0 +1,2 @@
+<?xml version="1.0" encoding="utf-8" ?>
+<levels><level id="1"><types>1, 1, 2, 1, 2, 3</types><max>30</max><time>10</time><walls>(0, 0), (100,100), (200,200)</walls></level></levels>

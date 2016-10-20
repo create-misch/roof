@@ -40,10 +40,7 @@ Engine::~Engine()
 }
 
 void Engine::initEngine()
-{
-    for(int i = 1; i < 10; i++){
-        levels.push_back(Level(i*5));
-    }
+{      
     clearTrash();
     level_ = 0;
 
@@ -53,17 +50,15 @@ void Engine::initEngine()
 
 void Engine::newSingleGame(const int level)
 {
-    level_ = level;
+    if(readLevels() == false){
+        qDebug() << "no levels";
+        return;
+    }
+    initLevel(level);
     score_ = 0;
-    time_end_level = 0;
+    time_end_level = 0;    
     my_object.initMyObject(&objects);
-    Wall *wall = new Wall;
-    wall->initWall(200,200);
-    objects.push_back(wall);
-    wall = new Wall;
-    wall->initWall(240,200);
-    objects.push_back(wall);
-
+    initWalls();
     start();
 }
 
@@ -84,6 +79,20 @@ bool Engine::isRunning() const
     return is_running_;
 }
 
+bool Engine::readLevels()
+{    
+    LevelsReader reader;
+    reader.read("./levels.xml");
+    levels_ = reader.getLevelsVector();
+    if(levels_.isEmpty()){
+        return false;
+    }
+    else{
+        return true;
+    }
+
+}
+
 void Engine::gameOver()
 {
     if(isRunning() == true){
@@ -95,6 +104,36 @@ void Engine::nextLevel()
 {
     clearTrash();
     level_++;
+    if(level_ > levels_.size() - 1){
+        pause();
+    }
+    initWalls();
+}
+
+void Engine::initLevel(const int level)
+{
+    if(level == 0){
+        level_ = 0;
+    }
+    else{
+        level_ = level - 1;
+    }
+    if(level_ >= levels_.size()){
+        level_ = levels_.size() - 1;
+    }
+}
+
+void Engine::initWalls()
+{    
+    QVector<ValueXY> *walls = &levels_[level_].walls;
+    if(walls->isEmpty() == true){
+        return;
+    }
+    for(QVector<ValueXY>::const_iterator it = walls->begin(); it != walls->end(); it++){
+        Wall *wall = new Wall;
+        wall->initWall((*it).x,(*it).y);
+        objects.push_back(wall);
+    }
 }
 
 void Engine::clearTrash()
@@ -111,10 +150,10 @@ void Engine::burnNpc(const int level)
                                  time_end_level < Options::instance()->game_option.getTimePrevieFight())){
         return;
     }
-    if(burned_npc_ != levels.at(level - 1).max_burned && levels.at(level -1).types_npc.isEmpty() == false){
-        if((QDateTime::currentMSecsSinceEpoch()/100)%levels.at(level - 1).time_to_burn == 0){            
+    if(burned_npc_ != levels_.at(level).max_burned && levels_.at(level).types_npc.isEmpty() == false){
+        if((QDateTime::currentMSecsSinceEpoch()/100)%levels_.at(level).time_to_burn == 0){
             NpcObject *npc;
-            QVector<TypeObject> *type_npc =(QVector<TypeObject>*)(&levels.at(level -1).types_npc);           
+            QVector<TypeObject> *type_npc =(QVector<TypeObject>*)(&levels_.at(level).types_npc);
             switch(type_npc->first()){
             case BOT:
                 npc = new Bot;
@@ -126,6 +165,7 @@ void Engine::burnNpc(const int level)
                 npc = new FatBot;
                 break;
             default:
+                npc = new Bot;
                 break;
             }            
             npc->initNpcObject(&my_object, &objects);
@@ -206,7 +246,7 @@ void Engine::checkNextLevel(const int level)
             (*it)->getTypeObject() == FAT_BOT){
         return;
     }
-    if(burned_npc_ == levels.at(level - 1).max_burned){
+    if(burned_npc_ == levels_.at(level).max_burned){
         time_end_level = QDateTime::currentMSecsSinceEpoch();
         nextLevel();
     }

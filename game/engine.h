@@ -10,6 +10,8 @@
 #include "./objects/kamikaze.h"
 #include "./objects/wall.h"
 #include "./objects/fatbot.h"
+#include "level.h"
+#include "reader/levelsreader.h"
 #include "algorithm"
 
 bool sortLife_false(Object *lhs, Object *rhs);
@@ -38,9 +40,12 @@ public:
     bool isRunning() const;
     int saveGame(){}
     int loadGame(){}
+    bool readLevels();
 private:
     void gameOver();
     void nextLevel();
+    void initLevel(const int level);
+    void initWalls();
 
     void clearTrash();//очистка всех контейнеров
 
@@ -54,7 +59,7 @@ private:
 
 
 
-    QVector<Level> levels;
+    QVector<Level> levels_;
     QTimer timer;
     DataEngine dataEngine;
     MyObject my_object;
