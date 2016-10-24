@@ -49,17 +49,10 @@ void SingleGame::newGame_slot()
     }
     graphic_ = new Graphic;
     graphic_->setParent(this);
-//    scene_ = new Scene;
-//    QGraphicsView *view = new QGraphicsView(scene_);
-//    view->resize(600,600);
-
-
 
     engine_ = new Engine;
     engine_->initEngine();
     engine_->newSingleGame(1);
-
-
 
     connect(engine_, SIGNAL(sendState_signal(DataEngine)),  graphic_, SLOT(getState_slot(DataEngine)));
     connect(graphic_, SIGNAL(sendMyAction_signal(Action)), engine_, SIGNAL(sendAction_signal(Action)));
@@ -67,8 +60,6 @@ void SingleGame::newGame_slot()
 
 
     WindowsManager::instance()->pushBackWindow(graphic_);
-    //graphic.show();
-
 }
 
 void SingleGame::loadGame_slot()

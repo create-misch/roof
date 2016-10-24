@@ -9,10 +9,15 @@ QT       += core gui
 
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
-CONFIG  += c++11
 
 TARGET = roof
 TEMPLATE = app
+
+DESTDIR = ./
+
+MOC_DIR = ./moc
+
+OBJECTS_DIR = ./obj
 
 
 SOURCES += main.cpp\
@@ -35,7 +40,6 @@ SOURCES += main.cpp\
     menu/windowsmanager.cpp \
     game/objects/wallbehavior.cpp \
     game/objects/fatbot.cpp \
-   # game/scene.cpp
     reader/levelsreader.cpp \
     reader/parser.cpp
 
@@ -61,7 +65,6 @@ HEADERS  += ./menu/menuwindow.h \
     menu/windowsmanager.h \
     game/objects/wallbehavior.h \
     game/objects/fatbot.h \
-    #game/scene.h
     reader/levelsreader.h \
     game/level.h \
     reader/parser.h

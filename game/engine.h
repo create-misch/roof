@@ -4,6 +4,7 @@
 #include <QObject>
 #include <QTimer>
 #include <QDateTime>
+#include <QFileDialog>
 #include "./objects/bullet.h"
 #include "./objects/myobject.h"
 #include "./objects/bot.h"
@@ -14,11 +15,14 @@
 #include "reader/levelsreader.h"
 #include "algorithm"
 
+typedef QVector<Object *> ObjectVector;
+
 bool sortLife_false(Object *lhs, Object *rhs);
 bool isLife_false(Object *o);
 bool isLifeNpc_true(Object *o);
 
 class Wall;
+
 struct DataEngine{
     MyObject *my;
     QVector<Object *> *objects;
@@ -38,10 +42,11 @@ public:
     void pause();
     void stop(){}
     bool isRunning() const;
-    int saveGame(){}
-    int loadGame(){}
+//    int saveGame(){}
+//    int loadGame(){}
     bool readLevels();
 private:
+    void endGame();
     void gameOver();
     void nextLevel();
     void initLevel(const int level);
@@ -49,27 +54,25 @@ private:
 
     void clearTrash();//очистка всех контейнеров
 
-
     //Каждый такт
     void burnNpc(const int level);
     void checkHints();
     void checkLife();
     void checkNextLevel(const int level);
     void moveAll();//перемещение всех объектов
+    void sendDataEngine();
 
 
 
     QVector<Level> levels_;
-    QTimer timer;
-    DataEngine dataEngine;
-    MyObject my_object;
-    QVector<Object *>objects;
-    QVector<Object *>::iterator it_object;
+    QTimer timer_;
+    MyObject my_object_;
+    ObjectVector objects_;
     bool is_running_;
     int level_;
     int burned_npc_;
     int score_;
-    qint64 time_end_level;
+    qint64 time_end_level_;
 
 
 signals:

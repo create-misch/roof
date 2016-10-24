@@ -1,5 +1,10 @@
 <RCC>
     <qresource prefix="/">
         <file>game/bot.jpg</file>
+        <file>game/bg.jpg</file>
+        <file>game/box.gif</file>
+        <file>game/fatbot.jpg</file>
+        <file>game/kamikaze.jpg</file>
+        <file>game/my.jpg</file>
     </qresource>
 </RCC>

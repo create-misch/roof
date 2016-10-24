@@ -20,8 +20,8 @@ void MyObject::initMyObject(QVector<Object *> * const obj)
     }
     setTypeObject(MY_OBJECT);
     setIsLife(true);
-    setX(300);
-    setY(200);
+    setX(Options::instance()->app_option.getGameSpaceWidth()/2 - getWidth()/2);
+    setY(Options::instance()->app_option.getGameSpaceHeight()/2 - getHeight()/2);
     setHealth(Options::instance()->game_option.getMyHealth());
     setHeight(Options::instance()->game_option.getMyObjectHeight());
     setWidth(Options::instance()->game_option.getMyObjectWidth());

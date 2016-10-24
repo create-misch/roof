@@ -23,8 +23,6 @@ public:
     void setBulletBehavior(BulletBehavior *behavior);
     void checkOnHint();
     Weapon getWeapon() const;
-    bool operator ==(Object *rhs);
-
 };
 
 #endif // BULLET_H

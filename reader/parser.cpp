@@ -48,7 +48,7 @@ void Parser::parseLineWalls(const QString &str)
         if(walls.size() > 1){
             int wall_height = Options::instance()->game_option.getWallHeight();
             int wall_width = Options::instance()->game_option.getWallWidth();
-            for(int i = 0; i < walls.size() - 1; i++){
+            for(int i = 0; i < walls.size() - 1; i++){                
                 if((walls[i+1].x > walls[i].x) && (walls[i+1].y == walls[i].y)){
                     int count = (walls[i+1].x - walls[i].x)/wall_width;
                     for(int j = 0; j < count; j++){
@@ -70,7 +70,6 @@ void Parser::parseLineWalls(const QString &str)
                     }
                 }
             }
-
         else{
             walls_ += walls;
         }

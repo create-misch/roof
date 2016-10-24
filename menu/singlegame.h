@@ -5,7 +5,6 @@
 #include <QGraphicsView>
 #include "../game/engine.h"
 #include "../game/graphic.h"
-//#include "../game/scene.h"
 #include "windowsmanager.h"
 
 class Graphic;

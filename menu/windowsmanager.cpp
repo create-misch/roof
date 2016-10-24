@@ -4,12 +4,7 @@ WindowsManager *WindowsManager::windows_manager_ = 0;
 
 WindowsManager::WindowsManager()
 {
-    /*
-    connect(menu_window_, SIGNAL(pop_window_signal()),SLOT(popBackWindow()));
-    connect(menu_window_, SIGNAL(push_window_signal(QWidget*)),SLOT(pushBackWindow(QWidget*)));
-    menu_window_ = new MenuWindow;
-    pushBackWindow(menu_window_);
-    */
+
 }
 
 WindowsManager *WindowsManager::instance()
@@ -28,9 +23,6 @@ void WindowsManager::pushBackWindow(QWidget *window)
     }
     if(windows_.isEmpty() == true){
         windows_.push_back(window);
-        //windows_.last()->show();
-        //windows_.last()->resize(Options::instance()->app_option.getWindowWidth(),
-           //                     Options::instance()->app_option.getWindowHeight());
         QWidget *widget = new QWidget;
         windows_.push_front(widget);
         windows_.last()->resize(Options::instance()->app_option.getWindowWidth(),
@@ -44,9 +36,6 @@ void WindowsManager::pushBackWindow(QWidget *window)
         windows_.last()->setGeometry(0, 0, Options::instance()->app_option.getWindowWidth(),
                                 Options::instance()->app_option.getWindowHeight());
     }
-
-
-
     windows_.last()->show();
     windows_.last()->setFocus();
 }

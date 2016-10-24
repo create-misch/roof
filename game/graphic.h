@@ -2,6 +2,7 @@
 #define GRAPHIC_H
 
 #include <QWidget>
+#include <QBitmap>
 #include <QPainter>
 #include <QKeyEvent>
 #include <QPaintEvent>
@@ -27,12 +28,15 @@ public:
     void drawFatBot(const Object *obj);
     void drawWall(const Object *obj);
 
+    QPixmap fat_bot;
+    QPixmap kamikaze;
+    QPixmap wall;
     QPixmap bot;
+    QPixmap my_pixmap;
 
     Action action;
     DataEngine dataEngine;
     GamePanel *game_panel;
-    QPainter painter;
     GameOptions *game_option;
     AppOptions *app_options;
 

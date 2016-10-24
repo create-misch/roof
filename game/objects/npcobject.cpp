@@ -19,12 +19,12 @@ bool NpcObject::initPosition(const Position position)
 
     switch(position){
     case TOP:
-        setX(Options::instance()->app_option.getGameSpaceWidth()/2);
-        setY(getHeight());
+        setX(Options::instance()->app_option.getGameSpaceWidth()/2 - getWidth()/2);
+        setY(0);
         break;
 
     case BOTTOM:
-        setX(Options::instance()->app_option.getGameSpaceWidth()/2);
+        setX(Options::instance()->app_option.getGameSpaceWidth()/2 - getWidth()/2);
         setY(Options::instance()->app_option.getGameSpaceHeight() - getHeight());
         break;
 
@@ -89,40 +89,15 @@ void NpcObject::calculateAngle()
                                   pow(((height_game_spase - my_object_->getY()) -(height_game_spase -  getY())),2)));
 
 
-    /*
-    if(my_object->getY() <= getY()){
-        angle = static_cast<int>(180/Pi *acos((my_object->getX() - getX())/r));
+    if(my_object_->getY() <= getY()){
+        angle = static_cast<int>(180/Pi *acos((my_object_->getX() - getX())/r));
     }
-
-    if(my_object->getY() > getY()){
-        angle = static_cast<int>(180/Pi *acos((my_object->getX() - getX())/r));
+    if(my_object_->getY() > getY()){
+        angle = static_cast<int>(180/Pi *acos((my_object_->getX() - getX())/r));
     }
-    */
-    angle = static_cast<int>(180/Pi *acos((my_object_->getX() - getX())/r));
-
     if(my_object_->getY() < getY()){
-        angle += 180;
+        angle = 360 - angle;
     }
-
-
-    //dwwwwwwwwwwwaaaaaaaaaaaaaangle = 360 - angle;
-   // qDebug() << angle;
     setAngle(angle);
-
-}
-
-
-bool NpcObject::operator ==(Object *rhs)
-{
-    if(getX() == rhs->getX() &&
-            getY() == rhs->getY() &&
-            getIsLife() == rhs->getIsLife() &&
-            getAngle() == rhs->getAngle() &&
-            getHealth() == rhs->getHealth()){
-        return true;
-    }
-    else {
-        return false;
-    }
 }
 

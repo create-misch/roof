@@ -33,19 +33,19 @@ public:
     GameOptions() {}
     int getMyObjectHeight(){return 40;}
     int getMyObjectWidth(){return 40;}
-    int getMyStep(){return 5;}
+    int getMyStep(){return 2;}
     int getMyHealth(){return 100;}
     int getNpcHeight(){return 40;}
     int getNpcWidth(){return 40;}
-    int getBotStep(){return 1;}
+    int getBotStep(){return 2;}
     int getBotHealth(){return 100;}
     int getKamikazeStep(){return 5;}
     int getKamikazeHealth(){return 10;}
-    int getFatBotStep(){return 1;}
+    int getFatBotStep(){return 2;}
     int getFatBotHealth(){return 200;}
     int getBulletHeight(){return 3;}
     int getBulletWidth(){return 3;}
-    int getBulletStep(){return 20;}
+    int getBulletStep(){return 30;}
     int getWallHeight(){return 40;}
     int getWallWidth(){return 40;}
     int getRocketHintHeight(){return 100;}

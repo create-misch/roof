@@ -18,7 +18,6 @@ public:
 private:
     bool canMove(const int x,const int y);
     void calculateAngle();
-    bool operator ==(Object *rhs);
 
     Object *my_object_;
 };

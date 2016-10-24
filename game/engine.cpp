@@ -44,8 +44,8 @@ void Engine::initEngine()
     clearTrash();
     level_ = 0;
 
-    QObject::connect(&timer, SIGNAL(timeout()), SLOT(everyTick_slot()));    
-    QObject::connect(this, SIGNAL(sendAction_signal(Action)), &my_object, SLOT(getAction_slot(Action)));
+    QObject::connect(&timer_, SIGNAL(timeout()), SLOT(everyTick_slot()));
+    QObject::connect(this, SIGNAL(sendAction_signal(Action)), &my_object_, SLOT(getAction_slot(Action)));
 }
 
 void Engine::newSingleGame(const int level)
@@ -56,21 +56,21 @@ void Engine::newSingleGame(const int level)
     }
     initLevel(level);
     score_ = 0;
-    time_end_level = 0;    
-    my_object.initMyObject(&objects);
+    time_end_level_ = 0;
+    my_object_.initMyObject(&objects_);
     initWalls();
     start();
 }
 
 void Engine::start()
 {
-     timer.start(100);
+     timer_.start(100);
      is_running_= true;
 }
 
 void Engine::pause()
 {
-    timer.stop();
+    timer_.stop();
     is_running_ = false;
 }
 
@@ -93,6 +93,11 @@ bool Engine::readLevels()
 
 }
 
+void Engine::endGame()
+{
+    pause();
+}
+
 void Engine::gameOver()
 {
     if(isRunning() == true){
@@ -104,8 +109,9 @@ void Engine::nextLevel()
 {
     clearTrash();
     level_++;
-    if(level_ > levels_.size() - 1){
-        pause();
+    if(level_ >= levels_.size()){
+        endGame();
+        return;
     }
     initWalls();
 }
@@ -132,22 +138,21 @@ void Engine::initWalls()
     for(QVector<ValueXY>::const_iterator it = walls->begin(); it != walls->end(); it++){
         Wall *wall = new Wall;
         wall->initWall((*it).x,(*it).y);
-        objects.push_back(wall);
+        objects_.push_back(wall);
     }
 }
 
 void Engine::clearTrash()
-{
-    it_object = 0;
+{    
     burned_npc_ = 0;
-    qDeleteAll(objects);
-    objects.clear();
+    qDeleteAll(objects_);
+    objects_.clear();
 }
 
 void Engine::burnNpc(const int level)
 {
-    if((time_end_level != 0) && (QDateTime::currentMSecsSinceEpoch() -
-                                 time_end_level < Options::instance()->game_option.getTimePrevieFight())){
+    if((time_end_level_ != 0) && (QDateTime::currentMSecsSinceEpoch() -
+                                 time_end_level_ < Options::instance()->game_option.getTimePrevieFight())){
         return;
     }
     if(burned_npc_ != levels_.at(level).max_burned && levels_.at(level).types_npc.isEmpty() == false){
@@ -168,7 +173,7 @@ void Engine::burnNpc(const int level)
                 npc = new Bot;
                 break;
             }            
-            npc->initNpcObject(&my_object, &objects);
+            npc->initNpcObject(&my_object_, &objects_);
             bool can_burn;
             if(burned_npc_%2 == 0){
                 can_burn = npc->initPosition(BOTTOM);
@@ -183,7 +188,7 @@ void Engine::burnNpc(const int level)
                 }
             }
             if(can_burn == true){
-                objects.push_back(npc);
+                objects_.push_back(npc);
                 burned_npc_++;
                 type_npc->pop_front();
             }
@@ -199,10 +204,10 @@ void Engine::burnNpc(const int level)
 
 void Engine::checkHints()
 {
-    if(objects.isEmpty() == true){
+    if(objects_.isEmpty() == true){
         return;
     }
-    for(it_object = objects.begin(); it_object != objects.end(); it_object++){        
+    for(ObjectVector::iterator it_object = objects_.begin(); it_object != objects_.end(); it_object++){
         if((*it_object)->getTypeObject() == BULLET){
             Bullet *bullet = dynamic_cast<Bullet*>(*it_object);
             bullet->checkOnHint();
@@ -212,17 +217,18 @@ void Engine::checkHints()
 
 void Engine::checkLife()
 {
-    if(my_object.getIsLife() == false){
+    if(my_object_.getIsLife() == false){
         gameOver();
     }
-    if(objects.isEmpty() == true){
+    if(objects_.isEmpty() == true){
         return;
     }
-    std::sort(objects.begin(), objects.end(), sortLife_false);
 
-    QVector<Object *>::iterator begin_remove = std::find_if(objects.begin(), objects.end(), isLife_false);
+    std::sort(objects_.begin(), objects_.end(), sortLife_false);
+
+    ObjectVector::iterator begin_remove = std::find_if(objects_.begin(), objects_.end(), isLife_false);
     if(begin_remove != 0){
-        for(QVector<Object *>::iterator it = begin_remove; it != objects.end();it++ ){            
+        for(QVector<Object *>::iterator it = begin_remove; it != objects_.end();it++ ){
             if((*it)->getIsLife() == false){
                 if((*it)->getTypeObject() == BOT  || (*it)->getTypeObject() == KAMIKAZE) {
                     score_ += 100;                    
@@ -232,47 +238,52 @@ void Engine::checkLife()
                 }
                 delete (*it);
             }
-
         }
-        objects.erase(begin_remove, objects.end());
+        objects_.erase(begin_remove, objects_.end());
     }
 
 }
 
 void Engine::checkNextLevel(const int level)
 {
-    QVector<Object *>::iterator it = std::find_if(objects.begin(),objects.end(), isLifeNpc_true);
+    ObjectVector::iterator it = std::find_if(objects_.begin(),objects_.end(), isLifeNpc_true);
     if((*it)->getTypeObject() == BOT || (*it)->getTypeObject() == KAMIKAZE ||
             (*it)->getTypeObject() == FAT_BOT){
         return;
     }
     if(burned_npc_ == levels_.at(level).max_burned){
-        time_end_level = QDateTime::currentMSecsSinceEpoch();
+        time_end_level_= QDateTime::currentMSecsSinceEpoch();
         nextLevel();
     }
 }
 
 void Engine::moveAll()
 {
-    for(it_object = objects.begin(); it_object != objects.end(); it_object++){
+    for(ObjectVector::const_iterator it_object = objects_.begin(); it_object != objects_.end(); it_object++){
         if((*it_object)->getIsLife() == true){
             (*it_object)->move();
         }
     }
 }
 
-void Engine::everyTick_slot()
+void Engine::sendDataEngine()
 {
+    DataEngine dataEngine;
     memset(&dataEngine, 0, sizeof(DataEngine));
-    burnNpc(level_);
-    checkHints();
-    checkLife();
-    moveAll();
-    dataEngine.my = &my_object;
-    dataEngine.objects  = &objects;
+    dataEngine.my = &my_object_;
+    dataEngine.objects  = &objects_;
     dataEngine.score = score_;
     dataEngine.level = level_;
     emit sendState_signal(dataEngine);
+}
+
+void Engine::everyTick_slot()
+{
+    burnNpc(level_);
+    checkHints();
+    sendDataEngine();
+    checkLife();
+    moveAll();
 }
 
 void Engine::getPause_slot()

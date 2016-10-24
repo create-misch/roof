@@ -64,7 +64,12 @@ void GamePanel::setParam(const DataEngine data)
     }
     BulletBehavior * weapon = *data.my->my_weapon;
     str.setNum(weapon->getAmmunition());
-    ammunition_count.setText(str);
+    if(weapon->getWeapon() == PISTOL){
+        ammunition_count.setText("--");
+    }
+    else{
+        ammunition_count.setText(str);
+    }
     str.clear();
     str.setNum(data.level + 1);
     level_count.setText(str);

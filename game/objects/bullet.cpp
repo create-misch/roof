@@ -101,18 +101,3 @@ Weapon Bullet::getWeapon() const
         return bulletBehavior->getWeapon();
     }
 }
-
-bool Bullet::operator ==(Object *rhs)
-{
-    if(getX() == rhs->getX() &&
-            getY() == rhs->getY() &&
-            getIsLife() == rhs->getIsLife() &&
-            getAngle() == rhs->getAngle() &&
-            getHealth() == rhs->getHealth()){
-        return true;
-    }
-    else {
-        return false;
-    }
-}
-
