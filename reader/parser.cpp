@@ -1,6 +1,10 @@
 #include "parser.h"
 #include <QRegExp>
 
+#include "../game/level.h"
+#include "../options.h"
+
+
 Parser::Parser()
 {
     types_.clear();

@@ -1,5 +1,11 @@
 #include "myobject.h"
 
+#include "pistolbehavior.h"
+#include "uzibehavior.h"
+#include "rocketbehavior.h"
+#include "wallbehavior.h"
+
+
 MyObject::MyObject(QObject *parent) : QObject(parent), Object()
 {
 

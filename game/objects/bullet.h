@@ -1,14 +1,14 @@
 #ifndef BULLET_H
 #define BULLET_H
+
 #include "object.h"
-#include "bulletbehavior.h"
-#include "pistolbehavior.h"
-#include "uzibehavior.h"
-#include "rocketbehavior.h"
-#include "wallbehavior.h"
+
 #include <QRect>
 
-
+class BulletBehavior;
+class UziBehavior;
+class RocketBehavior;
+class WallBehavior;
 
 class Bullet : public Object
 {

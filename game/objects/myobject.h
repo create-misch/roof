@@ -7,6 +7,11 @@
 #include "bullet.h"
 #include "wall.h"
 
+class BulletBehavior;
+class UziBehavior;
+class RocketBehavior;
+class WallBehavior;
+
 
 class MyObject : public QObject , public Object
 {

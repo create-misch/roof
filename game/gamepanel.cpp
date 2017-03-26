@@ -1,5 +1,7 @@
 #include "gamepanel.h"
 
+#include "../game/objects/bulletbehavior.h"
+
 GamePanel::GamePanel(QWidget *parent) : QWidget(parent)
 {
     health_txt.setText("health:");

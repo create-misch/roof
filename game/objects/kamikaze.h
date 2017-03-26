@@ -1,5 +1,6 @@
 #ifndef KAMIKAZE_H
 #define KAMIKAZE_H
+
 #include "npcobject.h"
 
 

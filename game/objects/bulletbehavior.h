@@ -1,5 +1,6 @@
 #ifndef BULLETBEHAVIOR_H
 #define BULLETBEHAVIOR_H
+
 //#include <QDebug>
 #include "object.h"
 //#include "bullet.h"

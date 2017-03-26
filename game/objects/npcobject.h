@@ -1,7 +1,10 @@
 #ifndef NPCOBJECT_H
 #define NPCOBJECT_H
 
+
 #include "object.h"
+
+class Object;
 
 class NpcObject : public Object
 {

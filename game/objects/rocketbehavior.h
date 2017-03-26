@@ -1,5 +1,6 @@
 #ifndef ROCKETBEHAVIOR_H
 #define ROCKETBEHAVIOR_H
+
 #include "bulletbehavior.h"
 
 class RocketBehavior : public BulletBehavior

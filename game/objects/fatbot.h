@@ -1,6 +1,8 @@
 #ifndef FATBOT_H
 #define FATBOT_H
+
 #include "npcobject.h"
+
 
 class FatBot : public NpcObject
 {

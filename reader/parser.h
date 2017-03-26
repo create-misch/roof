@@ -1,7 +1,13 @@
 #ifndef PARSER_H
 #define PARSER_H
+
+
 #include "../game/level.h"
-#include "../options.h"
+
+class Level;
+class Option;
+class ValueXY;
+
 
 class Parser
 {

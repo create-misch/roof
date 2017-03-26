@@ -1,5 +1,10 @@
 #include "bullet.h"
 
+#include "pistolbehavior.h"
+#include "uzibehavior.h"
+#include "rocketbehavior.h"
+#include "wallbehavior.h"
+
 Bullet::Bullet() :
     Object()
 {

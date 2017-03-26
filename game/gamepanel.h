@@ -6,6 +6,8 @@
 #include "engine.h"
 #include <QHBoxLayout>
 
+class BulletBehavior;
+
 class GamePanel : public QWidget
 {
     Q_OBJECT

@@ -1,5 +1,8 @@
 #ifndef WALL_H
 #define WALL_H
+
+#pragma once
+
 #include "object.h"
 
 

@@ -1,5 +1,6 @@
 #ifndef PISTOLBEHAVIOR_H
 #define PISTOLBEHAVIOR_H
+
 #include "bulletbehavior.h"
 
 class PistolBehavior : public BulletBehavior
